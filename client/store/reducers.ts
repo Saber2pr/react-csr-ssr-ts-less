@@ -1,7 +1,7 @@
-import { Reducer } from 'redux'
+import type { Reducer } from 'redux'
 
-import { ActCount } from './IAction'
-import { IState } from './IState'
+import type { ActCount } from './IAction'
+import type { IState } from './IState'
 
 export const count: Reducer<IState['count'], ActCount> = (
   state = 0,

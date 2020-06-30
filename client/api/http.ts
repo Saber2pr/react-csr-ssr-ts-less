@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import type { AxiosInstance, AxiosResponse } from 'axios'
+import axios from 'axios'
 import LRU from 'lru-cache'
 
 let __useCache = true
