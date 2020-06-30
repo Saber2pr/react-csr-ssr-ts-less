@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "ESNext"
+    ]
+  },
+  "include": [
+    "client"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "server"
+  ]
+}
