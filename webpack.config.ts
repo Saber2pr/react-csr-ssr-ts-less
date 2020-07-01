@@ -19,14 +19,22 @@ const HTMLPlugin = new HtmlWebpackPlugin({
 
 // css, less, autoprefixer
 const ExtractText = new ExtractTextPlugin('style.min.css')
+const CSSModule = {
+  modules: true,
+  localIdentName: '[local]_[hash:base64:5]',
+}
 const ExtractCSSLoader = ExtractText.extract({
   use: [
     {
       loader: 'css-loader',
+      options: {
+        ...CSSModule,
+      },
     },
     {
       loader: 'less-loader',
       options: {
+        ...CSSModule,
         plugins: [
           new CleanCSSPlugin({
             advanced: true,

@@ -1,14 +1,14 @@
-import './style.less'
-
 import React from 'react'
 
 import { Nav } from '../../components'
+// @ts-ignore
+import styles from './style.less'
 
 export interface About {}
 
-export const About = ({  }: About) => {
+export const About = ({}: About) => {
   return (
-    <div className="About">
+    <div className={styles.About}>
       <header>
         <Nav />
       </header>

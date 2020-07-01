@@ -7,7 +7,7 @@
     "lib": [
       "dom",
       "ESNext"
-    ]
+    ],
   },
   "include": [
     "client"
