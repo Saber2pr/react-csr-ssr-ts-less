@@ -1,7 +1,7 @@
+import { format } from 'date-fns'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CleanCSSPlugin from 'less-plugin-clean-css'
-import moment from 'moment'
 import path from 'path'
 
 import type { Configuration, Options } from 'webpack'
@@ -13,7 +13,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const HTMLPlugin = new HtmlWebpackPlugin({
   template: path.join(__dirname, 'index.html'),
   meta: {
-    'app-version': moment().format('YYYYMMDDHHmmss'),
+    'app-version': format(new Date(), 'yyyyMMddhhmmss'),
   },
 })
 
