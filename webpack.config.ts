@@ -3,10 +3,20 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CleanCSSPlugin from 'less-plugin-clean-css'
 import moment from 'moment'
 import path from 'path'
-import { Configuration } from 'webpack'
+import type { Configuration, Options } from 'webpack'
+import type { ProxyConfigMap } from 'webpack-dev-server'
 
 const isDev = process.env.NODE_ENV === 'development'
 
+// html
+const HTMLPlugin = new HtmlWebpackPlugin({
+  template: path.join(__dirname, 'index.html'),
+  meta: {
+    'app-version': moment().format('YYYYMMDDHHmmss'),
+  },
+})
+
+// css, less, autoprefixer
 const ExtractText = new ExtractTextPlugin('style.min.css')
 const ExtractCSSLoader = ExtractText.extract({
   use: [
@@ -33,6 +43,28 @@ const ExtractCSSLoader = ExtractText.extract({
   fallback: 'style-loader',
 })
 
+// code split
+const splitChunksOptions: Options.SplitChunksOptions = {
+  cacheGroups: {
+    commons: {
+      test: /\.js$/,
+      name: 'vendors',
+      chunks: 'all',
+    },
+  },
+}
+
+// proxy
+const proxy: ProxyConfigMap = {
+  '/api': {
+    target: 'xxx',
+    pathRewrite: { '^/api': '' },
+    changeOrigin: true,
+    secure: false,
+  },
+}
+
+// webpack config
 export default {
   entry: path.join(__dirname, 'client', 'app.tsx'),
   resolve: {
@@ -43,17 +75,11 @@ export default {
     path: path.join(__dirname, 'public'),
     // 这里是因为HtmlWebpackPlugin与publicPath冲突
     publicPath: isDev ? undefined : '/public/',
+    chunkFilename: '[name].chunk.js',
   },
-  // devServer: {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'xxx',
-  //       pathRewrite: { '^/api': '' },
-  //       changeOrigin: true,
-  //       secure: false,
-  //     },
-  //   },
-  // },
+  devServer: {
+    proxy,
+  },
   module: {
     rules: [
       {
@@ -70,13 +96,8 @@ export default {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'index.html'),
-      meta: {
-        'app-version': moment().format('YYYY-MM-DD HH:mm:ss'),
-      },
-    }),
-    ExtractText,
-  ],
+  plugins: [HTMLPlugin, ExtractText],
+  optimization: {
+    splitChunks: isDev ? false : splitChunksOptions,
+  },
 } as Configuration
