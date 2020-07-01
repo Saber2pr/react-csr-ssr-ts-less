@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CleanCSSPlugin from 'less-plugin-clean-css'
 import moment from 'moment'
 import path from 'path'
+
 import type { Configuration, Options } from 'webpack'
 import type { ProxyConfigMap } from 'webpack-dev-server'
 
@@ -44,7 +45,7 @@ const ExtractCSSLoader = ExtractText.extract({
 })
 
 // code split
-const splitChunksOptions: Options.SplitChunksOptions = {
+const splitChunks: Options.SplitChunksOptions = {
   cacheGroups: {
     commons: {
       test: /\.js$/,
@@ -98,6 +99,6 @@ export default {
   },
   plugins: [HTMLPlugin, ExtractText],
   optimization: {
-    splitChunks: isDev ? false : splitChunksOptions,
+    splitChunks,
   },
 } as Configuration
