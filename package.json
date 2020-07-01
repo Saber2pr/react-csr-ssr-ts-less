@@ -29,6 +29,7 @@
     "@types/html-webpack-plugin": "^3.2.3",
     "@types/node": "^14.0.14",
     "@types/webpack": "^4.41.18",
+    "@types/webpack-dev-server": "^3.11.0",
     "asset-require-hook": "^1.2.0",
     "autoprefixer": "^9.8.4",
     "cookie-parser": "^1.4.5",
